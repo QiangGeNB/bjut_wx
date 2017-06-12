@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
 var Student = require('./db/models/student')
-//var ws = require('./websocket_server.js')
+var ws = require('./websocket_server.js')
 var expressSession = require('express-session')
 var mongoStore = require('connect-mongo')(expressSession)
 
@@ -20,6 +20,7 @@ var apiRoutes = require('./routes/apiRoutes');
 var app = express();
 
 //设置session信息
+
 app.use(expressSession({
     resave: false,
     secret: 'SECRET',
@@ -29,6 +30,7 @@ app.use(expressSession({
         mongooseConnection: mongoose.connection
     })
 }));
+
 
 //跨域访问设置
 app.all('*', function(req, res, next) {
