@@ -4,7 +4,14 @@ var Student = require('../db/models/student.js');
 
 apiRoutes.get('/add_student',function(req,res){
   Student.create({
-      "name":"1"
+      "openID":"openID",
+      "userInfo":"userInfo",
+      "nickName":"nickName",
+      "avatarUrl":"avatarUrl",
+      "gender":1,
+      "province":"province",
+      "city":"city",
+      "country":"country"
       },function(err,result){
       if(!err){
           res.send(JSON.stringify(result));

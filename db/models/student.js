@@ -2,8 +2,15 @@ var Student = require('../schema/student.js')
 var mongoose=require('mongoose');
 
 exports.create=function(data,callback){
-    var student=new Student({
-        Name:data.name
+    	student=new Student({
+			openID:data.openID,
+			userInfo:data.userInfo,
+			nickName:data.nickName,
+			avatarUrl:data.avatarUrl,
+			gender:data.gender,
+			province:data.province,
+			city:data.city,
+			country:data.country
     });
     student.save(function(err,student){
         if(!err){
