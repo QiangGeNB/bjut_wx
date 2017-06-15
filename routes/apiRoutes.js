@@ -27,7 +27,11 @@ apiRoutes.get('/login',function(req,res){
 	     'username':"test"
 	   }//User为存入数据库回调回来的用户对象
 	  console.log(req.session);
-	res.send("success");
+  res.json({
+    erron : 0,
+    data : "cuiyao"
+  });
+  //res.send("success");
 });
 
 
