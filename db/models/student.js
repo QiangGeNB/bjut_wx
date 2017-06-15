@@ -3,7 +3,7 @@ var mongoose=require('mongoose');
 
 exports.create=function(data,callback){
     	student=new Student({
-			openID:data.openID,
+			openid:data.openid,
 			session_key:data.session_key,
 			userInfo:data.userInfo,
 			nickName:data.nickName,

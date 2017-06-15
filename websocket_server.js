@@ -3,7 +3,17 @@ var Student = require('./db/models/student')
 var APPID = "wx1fb345703cbe7620";
 var SECRET = "93aa03bd8e49cda997d6b8f2741af1f0";
 var https = require("https"); 
-var student_info = {};
+var student_info = {
+  openid:"",
+  session_key:"",
+  userInfo:"",
+  nickName:"",
+  avatarUrl:"",
+  gender:"",
+  province:"",
+  city:"",
+  country:""
+};
 
 const WebSocketServer = require('websocket').server;
 const http = require('http');
@@ -29,10 +39,14 @@ httpServer.listen( 8090 ,function(){
 wsServer.on('connect' , function(connection) {
   connection.on('message' , function(message){
     message = JSON.parse(message.utf8Data);
-    //console.log(">> message : " + message.name);
-    //console.log(">>message.type : " + message.type);
     if(message.action === "add"){
-      student_info = message.data;
+      student_info.userInfo = message.data.userInfo;
+      student_info.nickName = message.data.nickName;
+      student_info.avatarUrl = message.data.avatarUrl;
+      student_info.gender = message.data.gender;
+      student_info.province = message.data.province;
+      student_info.city = message.data.city;
+      student_info.country = message.data.country;
       var JSCODE = message.code;
       var url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx1fb345703cbe7620"
                 +"&secret=93aa03bd8e49cda997d6b8f2741af1f0"
