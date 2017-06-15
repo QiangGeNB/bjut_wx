@@ -1,7 +1,7 @@
 var mongoose = require('../db.js')
 
 var StudentSchema = new mongoose.Schema({
-	openID:String,
+	openid:String,
 	session_key:String,
 	userInfo:String,
 	nickName:String,
