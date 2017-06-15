@@ -1,6 +1,8 @@
 var mongoose = require('mongoose')
 var Student = require('./db/models/student')
-
+var APPID = "wx1fb345703cbe7620";
+var SECRET = "93aa03bd8e49cda997d6b8f2741af1f0";
+var https = require("https"); 
 
 const WebSocketServer = require('websocket').server;
 const http = require('http');
@@ -29,6 +31,18 @@ wsServer.on('connect' , function(connection) {
     //console.log(">> message : " + message.name);
     //console.log(">>message.type : " + message.type);
     if(message.action === "add"){
+      var JSCODE = message.data.code;
+      var url = "https://api.weixin.qq.com/sns/jscode2session?appid=APPID&secret=SECRET&js_code=JSCODE&grant_type=authorization_code";
+      console.log("123:"+JSCODE);
+      https.get(url, function (res){
+        res.on('data', (d) => {
+          console.log("openid:"+d.openid);
+          //process.stdout.write(d);
+        });
+      }).on("error", function (err) {  
+        Logger.error(err.stack)  
+        callback.apply(null);  
+      });  
       Student.create(message.data,function(err,student){
         if(err){
           console.log(err)
