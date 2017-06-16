@@ -22,3 +22,11 @@ exports.create=function(data,callback){
         }
     });
 };
+
+exports.findbyid=function(id,callback){
+	console.log(id);
+    Student.find({"openid":id},function(err,student){
+    	console.log(student);
+ 		callback(err,student);
+    });
+};

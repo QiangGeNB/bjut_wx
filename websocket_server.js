@@ -40,13 +40,7 @@ wsServer.on('connect' , function(connection) {
   connection.on('message' , function(message){
     message = JSON.parse(message.utf8Data);
     if(message.action === "add"){
-      student_info.userInfo = message.data.userInfo;
-      student_info.nickName = message.data.nickName;
-      student_info.avatarUrl = message.data.avatarUrl;
-      student_info.gender = message.data.gender;
-      student_info.province = message.data.province;
-      student_info.city = message.data.city;
-      student_info.country = message.data.country;
+      
       var JSCODE = message.code;
       var url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx1fb345703cbe7620"
                 +"&secret=93aa03bd8e49cda997d6b8f2741af1f0"
@@ -58,24 +52,40 @@ wsServer.on('connect' , function(connection) {
           d = JSON.parse(d);
           student_info.openid = d.openid;
           student_info.session_key = d.session_key;
+          student_info.userInfo = message.data.userInfo;
+          student_info.nickName = message.data.nickName;
+          student_info.avatarUrl = message.data.avatarUrl;
+          student_info.gender = message.data.gender;
+          student_info.province = message.data.province;
+          student_info.city = message.data.city;
+          student_info.country = message.data.country;
+
+          Student.findbyid(student_info.openid,function(err,student){
+            console.log(student);
+            if(err){
+              console.log(err);
+            }else{
+              if(student[0] == null){
+                Student.create(student_info,function(err,student){
+                if(err){
+                  console.log(err)
+                }
+                console.log(student)
+                //student = JSON.stringify(student)
+                //connection.sendUTF(persons)
+                });
+              }else{
+                console.log("student exist");
+              }
+            }
+          });
+          
           //process.stdout.write(d);
         });
       }).on("error", function (err) {  
         Logger.error(err.stack)  
         callback.apply(null);  
       });
-      if(student_info.openid == ""){
-        console.log("no id");
-      }else {
-        Student.create(student_info,function(err,student){
-          if(err){
-            console.log(err)
-          }
-          console.log(student)
-          //student = JSON.stringify(student)
-          //connection.sendUTF(persons)
-        });
-      }
     }
     else{
       console.log("wrong");
