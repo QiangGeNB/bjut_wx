@@ -63,15 +63,19 @@ wsServer.on('connect' , function(connection) {
       }).on("error", function (err) {  
         Logger.error(err.stack)  
         callback.apply(null);  
-      });  
-      Student.create(student_info,function(err,student){
-        if(err){
-          console.log(err)
-        }
-        console.log(student)
-        //student = JSON.stringify(student)
-        //connection.sendUTF(persons)
       });
+      if(student_info.openid == ""){
+        console.log("no id");
+      }else {
+        Student.create(student_info,function(err,student){
+          if(err){
+            console.log(err)
+          }
+          console.log(student)
+          //student = JSON.stringify(student)
+          //connection.sendUTF(persons)
+        });
+      }
     }
     else{
       console.log("wrong");
