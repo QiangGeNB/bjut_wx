@@ -9,7 +9,8 @@ var StudentSchema = new mongoose.Schema({
 	gender:Number,
 	province:String,
 	city:String,
-	country:String
+	country:String,
+	language:String
 })
 
 module.exports = mongoose.model('bjut_student',StudentSchema);

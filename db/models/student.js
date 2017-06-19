@@ -11,7 +11,8 @@ exports.create=function(data,callback){
 			gender:data.gender,
 			province:data.province,
 			city:data.city,
-			country:data.country
+			country:data.country,
+			language:data.language
     });
     student.save(function(err,student){
         if(!err){

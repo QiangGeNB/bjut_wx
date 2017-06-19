@@ -8,6 +8,7 @@ var student_info = {
   session_key:"",
   userInfo:"",
   nickName:"",
+  language:"",
   avatarUrl:"",
   gender:"",
   province:"",
@@ -59,6 +60,7 @@ wsServer.on('connect' , function(connection) {
           student_info.province = message.data.province;
           student_info.city = message.data.city;
           student_info.country = message.data.country;
+          student_info.language = message.data.language;
 
           Student.findbyid(student_info.openid,function(err,student){
             console.log(student);
