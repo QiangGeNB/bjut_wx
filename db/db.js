@@ -4,7 +4,7 @@ console.log('Creating global mongoose connection...');
 
 // Build the connection string
 mongoose.Promise = global.Promise; 
-var dbURI = 'mongodb://127.0.0.1:27017/bjut_test';
+var dbURI = 'mongodb://127.0.0.1:27017/bjut';
 
 // Create the database connection
 mongoose.connect(dbURI);
